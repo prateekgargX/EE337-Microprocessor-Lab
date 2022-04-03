@@ -1,0 +1,83 @@
+A51 MACRO ASSEMBLER  BS                                                                   01/30/2022 16:59:31 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\bs.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE bs.a51 SET(SMALL) DEBUG PRINT(.\Listings\bs.lst) OBJECT(.\Objects\bs.ob
+                      j) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL SEARCH
+0102 80FE              6     HERE: SJMP HERE
+                       7     
+0130                   8     ORG 130H
+0130                   9     SEARCH:
+                      10     
+0130 A830             11     MOV R0,30H  
+0132 A931             12     MOV R1,31H  
+0134 AA32             13     MOV R2,32H  
+                      14     
+0136 313B             15     CALL EXEC_SEARCH
+0138 8833             16     MOV 33H,R0  
+013A 22               17     RET
+                      18     
+013B                  19     EXEC_SEARCH:
+013B E9               20     MOV A,R1          
+013C 7003             21     JNZ NOT_ZERO  
+013E 780E             22     MOV R0,#0EH   
+0140 22               23     RET
+                      24     
+0141                  25     NOT_ZERO:
+0141 75F002           26     MOV B,#02H  
+0144 84               27     DIV AB 
+0145 F9               28     MOV R1,A    
+0146 14               29     DEC A       
+0147 25F0             30     ADD A,B     
+0149 28               31     ADD A,R0    
+014A F8               32     MOV R0,A    
+014B EA               33     MOV A,R2    
+014C C3               34     CLR C       
+014D 96               35     SUBB A,@R0  
+014E 4009             36     JC LOWER    
+0150 7001             37     JNZ HIGHER  
+0152 22               38     RET                 
+                      39     
+0153                  40     HIGHER:
+0153 08               41     INC R0            
+0154 8830             42     MOV 30H,R0                
+0156 313B             43     CALL EXEC_SEARCH  
+0158 22               44     RET
+                      45     
+0159                  46     LOWER:
+0159 A830             47     MOV R0,30H        
+015B 313B             48     CALL EXEC_SEARCH  
+015D 22               49     RET
+                      50     
+                      51     END
+A51 MACRO ASSEMBLER  BS                                                                   01/30/2022 16:59:31 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+EXEC_SEARCH. . . .  C ADDR   013BH   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+HIGHER . . . . . .  C ADDR   0153H   A   
+LOWER. . . . . . .  C ADDR   0159H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NOT_ZERO . . . . .  C ADDR   0141H   A   
+SEARCH . . . . . .  C ADDR   0130H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

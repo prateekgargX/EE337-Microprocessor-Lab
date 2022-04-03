@@ -1,0 +1,243 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              04/02/2022 17:16:00 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "endsem.h"
+   3          
+   4          char S_str[6]= {0,0,0,0,0,0};   //String for Balance Sita
+   5          char G_str[6] = {0,0,0,0,0,0};  //String for Balance Gita
+   6          char n500_s[3]= {0,0,0};    // STRING FOR 500RS NOTE
+   7          char n100_s[3]= {0,0,0};    // STRING FOR 100RS NOTE
+   8          
+   9          char password[5] = {0,0,0,0,0} ;   //PASSWORD ARRAY
+  10          
+  11          void msdelay(unsigned int time)
+  12          {
+  13   1        int i,j;
+  14   1        for(i=0;i<time;i++)
+  15   1        {
+  16   2          for(j=0;j<382;j++);
+  17   2        }
+  18   1      }
+  19          
+  20          unsigned int string_to_int_2(unsigned char *temp_str_data)
+  21          { 
+  22   1          unsigned int num=0;
+  23   1          temp_str_data[0]-=48;
+  24   1          temp_str_data[1]-=48;
+  25   1          num=(unsigned int)temp_str_data[0]*10+(unsigned int)temp_str_data[1];
+  26   1          return num;
+  27   1      }
+  28          
+  29          unsigned int string_check(unsigned char *temp_str_data)
+  30          {
+  31   1          if(temp_str_data[0]>=48 && temp_str_data[0]<58 && temp_str_data[1]>=48 && temp_str_data[1]<58 ) return 1
+             -;
+  32   1          return 0;
+  33   1      }
+  34          
+  35          unsigned int string_compare_5(unsigned char *s,unsigned char *p)
+  36          {
+  37   1          if(s[0]==p[0] && s[1]==p[1] && s[2]==p[2] && s[3]==p[3] && s[4]==p[4]) return 1;
+  38   1          return 0;
+  39   1      }
+  40          
+  41          //Main function
+  42          
+  43          //-------------------------------------------------
+  44          void main(void)
+  45          {
+  46   1        unsigned char ch1=0;
+  47   1        unsigned char ch2=0;
+  48   1        
+  49   1        unsigned int G_Bal=10000;
+  50   1        unsigned int S_Bal=10000;
+  51   1        
+  52   1        char Amnt[2]= {0,0};   
+  53   1        unsigned int Amnt_int=0;
+C51 COMPILER V9.60.0.0   MAIN                                                              04/02/2022 17:16:00 PAGE 2   
+
+  54   1        
+  55   1        unsigned int Num_5=0;
+  56   1        unsigned int Num_1=0;
+  57   1        
+  58   1        char Num_5_str[2]={0,0};
+  59   1        char Num_1_str[2]={0,0};
+  60   1        
+  61   1        char S_pass[6]= {'E','E','3','3','7'};   //String for Balance Sita
+  62   1        char G_pass[6] = {'U','P','L','A','B'};  //String for Balance Gita
+  63   1      
+  64   1        char S_pass_in[6]= {'E','E','3','3','7'};   //String for Balance Sita
+  65   1        char G_pass_in[6] = {'U','P','L','A','B'};  //String for Balance Gita
+  66   1        
+  67   1        uart_init();            // Please finish this function in endsem.h 
+  68   1        transmit_string("Press A for Account display and W for withdrawing cash\r\n");  
+  69   1          while (1)
+  70   1          {
+  71   2            //Receive a character
+  72   2            ch1 = receive_char();
+  73   2            if(ch1=='a') ch1='A';
+  74   2            if(ch1=='w') ch1='W';
+  75   2            //Decide which test function to run based on character sent
+  76   2            //Displays the string on the terminal software
+  77   2            switch(ch1)
+  78   2            {
+  79   3              case 'A':transmit_string("Hello, Please enter Account Number\r\n");
+  80   3                       ch2 = receive_char();
+  81   3                       switch(ch2)
+  82   3                       {
+  83   4                         case '1':transmit_string("Account Holder: Sita\r\n");
+  84   4                                  transmit_string("Account Balance:");
+  85   4                                  int_to_string(S_Bal,S_str);
+  86   4                                  transmit_string(S_str);
+  87   4                                  transmit_string("\r\n");
+  88   4                                  msdelay(50);        
+  89   4                                  break;
+  90   4                         case '2':transmit_string("Account Holder: Gita\r\n");
+  91   4                                  transmit_string("Account Balance:");
+  92   4                                  int_to_string(G_Bal,G_str);
+  93   4                                  transmit_string(G_str);
+  94   4                                  transmit_string("\r\n");
+  95   4                                  msdelay(50);          
+  96   4                                  break;  
+  97   4                          default:transmit_string("No such account, please enter valid details\r\n");
+  98   4                                  break;
+  99   4              
+ 100   4                       }
+ 101   3                       transmit_string("Press A for Account display and W for withdrawing cash\r\n");  
+ 102   3                       break;
+ 103   3              case 'W':transmit_string("Withdraw state, enter account number\r\n");
+ 104   3                       ch2 = receive_char();
+ 105   3                       switch(ch2)
+ 106   3                       {
+ 107   4                         case '1':transmit_string("Please enter password\r\n");
+ 108   4                                  S_pass_in[0]=receive_char();
+ 109   4                                  S_pass_in[1]=receive_char();
+ 110   4                                  S_pass_in[2]=receive_char();
+ 111   4                                  S_pass_in[3]=receive_char();
+ 112   4                                  S_pass_in[4]=receive_char();
+ 113   4                                  if(!string_compare_5(S_pass_in,S_pass)){
+ 114   5                                  transmit_string("Invalid Password\r\n");
+ 115   5                                  transmit_string("Press A for Account display and W for withdrawing cash\r\n");
+C51 COMPILER V9.60.0.0   MAIN                                                              04/02/2022 17:16:00 PAGE 3   
+
+ 116   5                                  break;
+ 117   5                                  }
+ 118   4                         
+ 119   4                                  transmit_string("Account Holder: Sita\r\n");
+ 120   4                                  transmit_string("Account Balance:");
+ 121   4                                  int_to_string(S_Bal,S_str);
+ 122   4                                  transmit_string(S_str);
+ 123   4                                  transmit_string("\r\n");
+ 124   4                                  transmit_string("Enter Amount, in hundreds\r\n");  
+ 125   4                                  Amnt[0]=receive_char();
+ 126   4                                  Amnt[1]=receive_char();
+ 127   4                                  if(string_check(Amnt)){
+ 128   5                                    Amnt_int=string_to_int_2(Amnt);
+ 129   5                                    if(S_Bal>=Amnt_int){
+ 130   6                                      S_Bal-=Amnt_int*100;
+ 131   6                                      Num_5=Amnt_int/5;
+ 132   6                                      Num_1=Amnt_int%5;
+ 133   6                                      transmit_string("Remaining Balance:");
+ 134   6                                      int_to_string(S_Bal,S_str);
+ 135   6                                      transmit_string(S_str);
+ 136   6                                      transmit_string("\r\n");
+ 137   6                                      transmit_string("500 Notes:");
+ 138   6                                      int_to_string_2(Num_5,Num_5_str);
+ 139   6                                      transmit_string(Num_5_str);
+ 140   6                                      transmit_string(",");
+ 141   6                                      transmit_string("100 Notes:");
+ 142   6                                      int_to_string_2(Num_1,Num_1_str);
+ 143   6                                      transmit_string(Num_1_str);
+ 144   6                                      transmit_string("\r\n");
+ 145   6                                    }
+ 146   5                                    else transmit_string("Insufficient Funds\r\n");  
+ 147   5                                  
+ 148   5                                  }
+ 149   4                                  else{
+ 150   5                                  transmit_string("Invalid Amount\r\n");  
+ 151   5                                  }
+ 152   4                                  break;
+ 153   4                         case '2':transmit_string("Please enter password\r\n");
+ 154   4                                  G_pass_in[0]=receive_char();
+ 155   4                                  G_pass_in[1]=receive_char();
+ 156   4                                  G_pass_in[2]=receive_char();
+ 157   4                                  G_pass_in[3]=receive_char();
+ 158   4                                  G_pass_in[4]=receive_char();
+ 159   4                                  if(!string_compare_5(G_pass_in,G_pass)){
+ 160   5                                  transmit_string("Invalid Password\r\n");
+ 161   5                                  transmit_string("Press A for Account display and W for withdrawing cash\r\n");
+ 162   5                                  break;
+ 163   5                                  }
+ 164   4                                  
+ 165   4                                  transmit_string("Account Holder: Gita\r\n");
+ 166   4                                  transmit_string("Account Balance:");
+ 167   4                                  int_to_string(G_Bal,G_str);
+ 168   4                                  transmit_string(G_str);
+ 169   4                                  transmit_string("\r\n");  
+ 170   4                                  transmit_string("Enter Amount, in hundreds\r\n");  
+ 171   4                                  Amnt[0]=receive_char();
+ 172   4                                  Amnt[1]=receive_char();
+ 173   4                                  if(string_check(Amnt)){
+ 174   5                                    Amnt_int=string_to_int_2(Amnt);
+ 175   5                                    if(G_Bal>=Amnt_int){
+ 176   6                                      G_Bal-=Amnt_int*100;
+ 177   6                                      Num_5=Amnt_int/5;
+C51 COMPILER V9.60.0.0   MAIN                                                              04/02/2022 17:16:00 PAGE 4   
+
+ 178   6                                      Num_1=Amnt_int%5;
+ 179   6                                      transmit_string("Remaining Balance:");
+ 180   6                                      int_to_string(G_Bal,G_str);
+ 181   6                                      transmit_string(G_str);
+ 182   6                                      transmit_string("\r\n");
+ 183   6                                      transmit_string("500 Notes:");
+ 184   6                                      int_to_string_2(Num_5,Num_5_str);
+ 185   6                                      transmit_string(Num_5_str);
+ 186   6                                      transmit_string(",");
+ 187   6                                      transmit_string("100 Notes:");
+ 188   6                                      int_to_string_2(Num_1,Num_1_str);
+ 189   6                                      transmit_string(Num_1_str);
+ 190   6                                      transmit_string("\r\n");
+ 191   6                                    }
+ 192   5                                    else transmit_string("Insufficient Funds\r\n");  
+ 193   5                                  
+ 194   5                                  }
+ 195   4                                  else{
+ 196   5                                  transmit_string("Invalid Amount\r\n");  
+ 197   5                                  }
+ 198   4                                  break;  
+ 199   4                        default:transmit_string("No such account, please enter valid details\r\n");
+ 200   4                                  break;
+ 201   4              
+ 202   4                       }
+ 203   3                       break;
+ 204   3              default:transmit_string("No such action possible. Please Enter A or W\r\n");
+ 205   3                       break;
+ 206   3              
+ 207   3            }
+ 208   2            msdelay(100);       
+ 209   2          }
+ 210   1      }
+ 211          
+ 212          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1535    ----
+   CONSTANT SIZE    =    474    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     23      61
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,48 @@
+A51 MACRO ASSEMBLER  LAB1                                                                 01/23/2022 15:21:38 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Lab1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Lab1.a51 SET(SMALL) DEBUG PRINT(.\Listings\Lab1.lst) OBJECT(.\Objects\L
+                      ab1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+0000                   2     ORG 0H
+0000 020100            3     LJMP MAIN
+0100                   4     ORG 100H
+0100                   5     MAIN:
+0100 3130              6     CALL ADD16
+0102 80FE              7     HERE: SJMP HERE
+0130                   8     ORG 130H
+                       9     
+0130                  10     ADD16:
+0130 E571             11     MOV A,71H
+0132 2573             12     ADD A,73H
+0134 F576             13     MOV 76H,A
+0136 E570             14     MOV A,70H
+0138 3572             15     ADDC A,72H
+013A F575             16     MOV 75H,A
+013C 7400             17     MOV A,#0H
+013E 3400             18     ADDC A,#0H
+0140 F574             19     MOV 74H,A
+0142 22               20     RET
+                      21     END
+A51 MACRO ASSEMBLER  LAB1                                                                 01/23/2022 15:21:38 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ADD16. . . . . . .  C ADDR   0130H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

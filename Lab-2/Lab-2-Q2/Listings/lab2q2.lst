@@ -1,0 +1,84 @@
+A51 MACRO ASSEMBLER  LAB2Q2                                                               01/23/2022 17:00:38 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\lab2q2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE lab2q2.a51 SET(SMALL) DEBUG PRINT(.\Listings\lab2q2.lst) OBJECT(.\Objec
+                      ts\lab2q2.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+0000                   2     ORG 0H
+0000 020100            3     LJMP MAIN
+0100                   4     ORG 100H
+0100                   5     MAIN:
+0100 3130              6     CALL MAC
+0102 80FE              7     HERE: SJMP HERE
+0130                   8     ORG 130H
+                       9     
+0130                  10     MAC:
+                      11     
+0130 E570             12     MOV A,70H
+0132 8573F0           13     MOV B,73H
+0135 A4               14     MUL AB
+                      15     
+0136 F561             16     MOV 61H,A
+0138 85F060           17     MOV 60H,B
+                      18     
+013B E571             19     MOV A,71H
+013D 8574F0           20     MOV B,74H
+0140 A4               21     MUL AB
+                      22     
+0141 F563             23     MOV 63H,A
+0143 85F062           24     MOV 62H,B
+0146 316B             25     CALL ADD16
+                      26     
+0148 E572             27     MOV A,72H
+014A 8575F0           28     MOV B,75H
+014D A4               29     MUL AB
+                      30     
+014E F561             31     MOV 61H,A
+0150 85F060           32     MOV 60H,B
+0153 856562           33     MOV 62H,65H
+0156 856663           34     MOV 63H,66H
+0159 856480           35     MOV 80H,64H
+015C 316B             36     CALL ADD16
+015E E564             37     MOV A,64H
+0160 2580             38     ADD A,80H
+0162 F550             39     MOV 50H,A
+0164 856551           40     MOV 51H,65H
+0167 856652           41     MOV 52H,66H
+016A 22               42     RET
+                      43     
+016B                  44     ADD16:
+016B E561             45     MOV A,61H
+016D 2563             46     ADD A,63H
+016F F566             47     MOV 66H,A
+0171 E560             48     MOV A,60H
+0173 3562             49     ADDC A,62H
+0175 F565             50     MOV 65H,A
+0177 7400             51     MOV A,#0H
+0179 3400             52     ADDC A,#0H
+017B F564             53     MOV 64H,A
+017D 22               54     RET
+                      55     END
+A51 MACRO ASSEMBLER  LAB2Q2                                                               01/23/2022 17:00:38 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ADD16. . . . . . .  C ADDR   016BH   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+MAC. . . . . . . .  C ADDR   0130H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

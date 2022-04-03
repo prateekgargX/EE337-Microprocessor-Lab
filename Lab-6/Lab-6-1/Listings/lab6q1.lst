@@ -1,0 +1,84 @@
+A51 MACRO ASSEMBLER  LAB6Q1                                                               03/07/2022 15:32:09 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\lab6q1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE lab6q1.a51 SET(SMALL) DEBUG PRINT(.\Listings\lab6q1.lst) OBJECT(.\Objec
+                      ts\lab6q1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+                       2     
+0000 753002            3     MOV 30H,#2
+0003 020200            4     ljmp start
+000B                   5     org 000BH
+000B 32                6     RETI
+0200                   7     org 200h
+0200                   8     start:  
+0200 AC30              9             MOV R4,30H
+0202 7590FF           10             MOV P1,#0FFH
+0205 5114             11             H2: ACALL DELAY_1S
+0207 DCFC             12             DJNZ R4, H2
+                      13             
+0209 AC30             14             MOV R4,30H
+020B 759000           15             MOV P1,#00H
+020E 5114             16             H3: ACALL DELAY_1S
+0210 DCFC             17             DJNZ R4, H3
+0212 80EC             18             SJMP START
+                      19     
+0214                  20     DELAY_1s:
+                      21             
+                      22             
+                      23             
+                      24             
+0214 7E3C             25             MOV R6,#3CH
+0216 7FB0             26             MOV R7,#0B0H
+0218 7D28             27             MOV R5,#40
+021A 511F             28             H4: ACALL PROP_DELAY_N
+021C DDFC             29             DJNZ R5, H4
+021E 22               30             RET
+                      31     
+021F                  32     PROP_DELAY_N:
+                      33             
+                      34             ;SETB IE.7 //INTERRUPTS ARE ENABLED
+                      35             ;SETB IE.1 //INTERRUPTS ARE ENABLED FROM T0
+021F 758901           36             MOV TMOD,#01  
+                      37             
+0222 8E8C             38             MOV TH0,R6
+0224 8F8A             39             MOV TL0,R7
+                      40             
+0226 D28C             41             SETB TR0  
+0228 308DFD           42             LOOP: JNB TF0,LOOP
+022B C28C             43             CLR TR0
+022D C28D             44             CLR TF0
+022F 22               45             RET
+                      46     
+                      47     END
+A51 MACRO ASSEMBLER  LAB6Q1                                                               03/07/2022 15:32:09 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY_1S . . . . .  C ADDR   0214H   A   
+H2 . . . . . . . .  C ADDR   0205H   A   
+H3 . . . . . . . .  C ADDR   020EH   A   
+H4 . . . . . . . .  C ADDR   021AH   A   
+LOOP . . . . . . .  C ADDR   0228H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PROP_DELAY_N . . .  C ADDR   021FH   A   
+START. . . . . . .  C ADDR   0200H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

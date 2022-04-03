@@ -1,0 +1,63 @@
+A51 MACRO ASSEMBLER  LAB5_2                                                               02/14/2022 15:08:34 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Lab5-2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Lab5-2.a51 SET(SMALL) DEBUG PRINT(.\Listings\Lab5-2.lst) OBJECT(.\Objec
+                      ts\Lab5-2.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+                       2     
+                       3     
+0000 020200            4     ljmp start
+                       5     
+0200                   6     org 200h
+0200                   7     start:
+0200 5104              8               acall ASCII_rep
+0202 80FE              9     here: sjmp here ;Infinite Loop 
+                      10     
+0204                  11     ASCII_rep:
+0204 E530             12             MOV A,30H
+0206 75F010           13             MOV B,#10H
+0209 84               14             DIV AB
+020A 5115             15             ACALL CONV_ASCII
+020C F560             16             MOV 60H,A
+020E E5F0             17             MOV A,B
+0210 5115             18             ACALL CONV_ASCII
+0212 F561             19             MOV 61H,A
+0214 22               20             RET
+                      21             
+0215                  22     CONV_ASCII:
+0215 B40A00           23             CJNE A,#0AH,CONV
+0218                  24             CONV:
+0218 4003             25             JC CONV_NUM
+021A 2437             26             ADD A,#55 
+021C 22               27             RET
+021D                  28             CONV_NUM:
+021D 2430             29             ADD A,#48
+021F 22               30             RET
+                      31             
+                      32     END
+A51 MACRO ASSEMBLER  LAB5_2                                                               02/14/2022 15:08:34 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ASCII_REP. . . . .  C ADDR   0204H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+CONV . . . . . . .  C ADDR   0218H   A   
+CONV_ASCII . . . .  C ADDR   0215H   A   
+CONV_NUM . . . . .  C ADDR   021DH   A   
+HERE . . . . . . .  C ADDR   0202H   A   
+START. . . . . . .  C ADDR   0200H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

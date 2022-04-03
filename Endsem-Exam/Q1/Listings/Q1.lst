@@ -1,0 +1,68 @@
+A51 MACRO ASSEMBLER  Q1                                                                   04/02/2022 14:27:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Q1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Q1.a51 SET(SMALL) DEBUG PRINT(.\Listings\Q1.lst) OBJECT(.\Objects\Q1.ob
+                      j) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL MAT_ADD
+0102 80FE              6     HERE: SJMP HERE
+                       7     
+0130                   8     ORG 130H
+0130                   9     MAT_ADD:
+0130 E530             10     MOV A,30H
+0132 F5F0             11     MOV B,A
+0134 A4               12     MUL AB
+0135 FC               13     MOV R4,A
+0136 F5F0             14     MOV B,A
+                      15     
+0138 7831             16     MOV R0,#31H
+013A 7431             17     MOV A,#31H
+013C 2C               18     ADD A,R4
+013D F9               19     MOV R1,A
+                      20     
+013E                  21     LOOP:
+013E E6               22             MOV A,@R0
+013F 27               23             ADD A,@R1
+0140 FA               24             MOV R2,A
+0141 E9               25             MOV A,R1
+0142 2C               26             ADD A,R4
+0143 F9               27             MOV R1,A
+0144 EA               28             MOV A,R2
+0145 F7               29             MOV @R1,A
+0146 E9               30             MOV A,R1
+0147 9C               31             SUBB A,R4
+0148 F9               32             MOV R1,A
+0149 08               33             INC R0
+014A 09               34             INC R1
+014B D5F0F0           35             DJNZ B,LOOP
+                      36             
+014E 22               37     RET
+                      38     
+                      39     END
+A51 MACRO ASSEMBLER  Q1                                                                   04/02/2022 14:27:08 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+LOOP . . . . . . .  C ADDR   013EH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MAT_ADD. . . . . .  C ADDR   0130H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

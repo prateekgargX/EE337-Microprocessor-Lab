@@ -1,0 +1,3 @@
+".\Objects\bs.obj" 
+TO ".\Objects\BInary-Search" 
+PRINT(".\Listings\BInary-Search.m51") RAMSIZE(256) 
